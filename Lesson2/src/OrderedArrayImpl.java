@@ -2,6 +2,8 @@ public class OrderedArrayImpl extends ArrayImpl implements Array {
 
     @Override
     public void add(int value) {
+        checkGrow();
+
         int index;
         for (index = 0; index < currentSize; index++) {
             if (data[index] > value) {

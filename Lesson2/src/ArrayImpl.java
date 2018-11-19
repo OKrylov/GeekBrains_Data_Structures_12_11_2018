@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class ArrayImpl implements Array {
+public class ArrayImpl implements Array, Cloneable {
 
     private static final int DEFAULT_CAPACITY = 16;
 
@@ -22,7 +22,7 @@ public class ArrayImpl implements Array {
         data[currentSize++] = value;
     }
 
-    private void checkGrow() {
+    protected void checkGrow() {
         if (currentSize == data.length) {
             int[] temp = new int[data.length * 2];
             for (int i = 0; i < data.length; i++) {
@@ -155,6 +155,15 @@ public class ArrayImpl implements Array {
         int temp = data[left];
         data[left] = data[right];
         data[right] = temp;
+    }
+
+    private ArrayImpl(int[] data, int size) {
+        this.data = Arrays.copyOf(data, data.length);
+        this.currentSize = size;
+    }
+
+    public Array copy() {
+        return new ArrayImpl(data, currentSize);
     }
 
 
