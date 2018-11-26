@@ -1,4 +1,4 @@
-public interface LinkedList /*extends Iterable<Integer>*/ {
+public interface LinkedList extends Iterable<Integer> {
 
     void add(int value);
 

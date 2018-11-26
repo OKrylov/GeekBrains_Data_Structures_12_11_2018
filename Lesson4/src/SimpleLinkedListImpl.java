@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class SimpleLinkedListImpl implements LinkedList {
 
     protected Node firstElement;//null
@@ -83,5 +85,18 @@ public class SimpleLinkedListImpl implements LinkedList {
     @Override
     public int getFirstElement() {
         return firstElement != null ? firstElement.getValue() : null;
+    }
+
+    public Node getFirstNode() {
+        return firstElement;
+    }
+
+    public void setFirstNode(Node node) {
+        firstElement = node;
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        return new LinkedListIterator(this);
     }
 }
