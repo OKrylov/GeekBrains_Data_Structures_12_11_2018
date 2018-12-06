@@ -13,7 +13,15 @@ public class TreeImpl implements Tree {
     }
 
     private Node root;
+    private int maxLevel;
 
+    public TreeImpl(int maxLevel) {
+        this.maxLevel = maxLevel;
+    }
+
+    public TreeImpl() {
+        this(0);
+    }
 
     @Override
     public void add(Person data) {
@@ -24,6 +32,12 @@ public class TreeImpl implements Tree {
 
         if (parent == null) {
             root = newNode;
+            root.setLevel(1);
+            return;
+        }
+
+        newNode.setLevel(parent.getLevel() + 1);
+        if (newNode.getLevel() > maxLevel) {
             return;
         }
 
@@ -237,5 +251,20 @@ public class TreeImpl implements Tree {
             nBlanks /= 2;
         }
         System.out.println("................................................................");
+    }
+
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    private boolean isBalanced(Node node) {
+        return (node == null) ||
+                isBalanced(node.getLeftChild()) &&
+                        isBalanced(node.getRightChild()) &&
+                        Math.abs(height(node.getLeftChild()) - height(node.getRightChild())) <= 1;
+    }
+
+    private int height(Node node) {
+        return node == null ? 0 : 1 + Math.max(height(node.getLeftChild()), height(node.getRightChild()));
     }
 }

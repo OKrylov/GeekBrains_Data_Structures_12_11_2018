@@ -2,6 +2,8 @@ public class Node {
 
     private final Person data;
 
+    private int level;
+
     private Node leftChild;
     private Node rightChild;
 
@@ -41,6 +43,14 @@ public class Node {
         else {
             return getRightChild();
         }
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public boolean isLeftChild(int key) {
