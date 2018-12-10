@@ -137,4 +137,45 @@ public class Graph {
 
         return null;
     }
+
+    public Stack<String> findShortPathViaBfs(String startLabel, String finishLabel) {
+        int startIndex = indexOf(startLabel);
+        if (startIndex == -1) {
+            throw new IllegalArgumentException("Invalid startLabel: " + startLabel);
+        }
+
+        Queue<Vertex> queue = new ArrayDeque();
+
+        Vertex vertex = vertexes.get(startIndex);
+        visit(queue, vertex);
+
+        while ( !queue.isEmpty()) {
+            vertex = getUnvisitedLinkedVertex(queue.peek());
+            if (vertex == null) {
+                queue.remove();
+            }
+            else {
+                visit(queue, vertex);
+                vertex.setPreviousVertex(queue.peek());
+                if (vertex.getLabel().equals(finishLabel)) {
+                    return buildPath(vertex);
+                }
+            }
+        }
+
+        resetVertexStates();
+        return null;
+    }
+
+    private Stack<String> buildPath(Vertex vertex) {
+        Stack<String> stack = new Stack();
+        Vertex current = vertex;
+        while (current != null) {
+            stack.push(current.getLabel());
+            current = current.getPreviousVertex();
+        }
+
+        resetVertexStates();
+        return stack;
+    }
 }
